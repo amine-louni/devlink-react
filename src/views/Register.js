@@ -1,40 +1,40 @@
-import React from 'react';
-import { Link as RouterLink, Redirect } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { register } from '../actions';
+import React from "react";
+import { Link as RouterLink, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import { register, getCurrentUserProfile } from "../actions";
 
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
 
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
 
-import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import { Form, Formik, Field } from 'formik';
-import * as Yup from 'yup';
-import { TextField } from 'formik-material-ui';
-import Footer from '../components/common/Footer';
+import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import { Form, Formik, Field } from "formik";
+import * as Yup from "yup";
+import { TextField } from "formik-material-ui";
+import Footer from "../components/common/Footer";
 
-import { CircularProgress } from '@material-ui/core';
+import { CircularProgress } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.primary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(3),
   },
   submit: {
@@ -46,14 +46,14 @@ const Register = (props) => {
   const classes = useStyles();
 
   const validationSchema = Yup.object({
-    userName: Yup.string().required('Required field').min(3),
-    firstName: Yup.string().required('Required field').min(3),
-    lastName: Yup.string().required('Required field').min(3),
-    email: Yup.string().email('Enter valid email').required('Required field'),
-    password: Yup.string().required('Required field').min(8),
+    userName: Yup.string().required("Required field").min(3),
+    firstName: Yup.string().required("Required field").min(3),
+    lastName: Yup.string().required("Required field").min(3),
+    email: Yup.string().email("Enter valid email").required("Required field"),
+    password: Yup.string().required("Required field").min(8),
     passwordConfirm: Yup.string().oneOf(
-      [Yup.ref('password'), null],
-      'Passwords must match'
+      [Yup.ref("password"), null],
+      "Passwords must match"
     ),
   });
   // Redirect if logged in
@@ -71,16 +71,17 @@ const Register = (props) => {
         </Typography>
         <Formik
           initialValues={{
-            firstName: '',
-            lastName: '',
-            userName: '',
-            email: '',
-            password: '',
-            passwordConfirm: '',
+            firstName: "",
+            lastName: "",
+            userName: "",
+            email: "",
+            password: "",
+            passwordConfirm: "",
           }}
           validationSchema={validationSchema}
           onSubmit={async (values, { setSubmitting }) => {
             await props.register(values);
+            await props.getCurrentUserProfile();
             setSubmitting(false);
           }}
         >
@@ -171,9 +172,9 @@ const Register = (props) => {
                 className={classes.submit}
                 disabled={isSubmitting}
               >
-                {isSubmitting ? <CircularProgress size={24} /> : 'Register'}
+                {isSubmitting ? <CircularProgress size={24} /> : "Register"}
               </Button>
-              {isSubmitting ? 'true' : 'false'}
+              {isSubmitting ? "true" : "false"}
               <Grid container justify="flex-end">
                 <Grid item>
                   <RouterLink to="/login">
@@ -197,4 +198,6 @@ const Register = (props) => {
 const mapStateToProps = (state) => {
   return { isAuth: state.auth.isAuth };
 };
-export default connect(mapStateToProps, { register })(Register);
+export default connect(mapStateToProps, { register, getCurrentUserProfile })(
+  Register
+);

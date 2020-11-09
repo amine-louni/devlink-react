@@ -1,11 +1,11 @@
 // React + Redux Dependencies
-import React from 'react';
-import { connect } from 'react-redux';
+import React from "react";
+import { connect } from "react-redux";
 
 // 3rd party Dependencies
-import dayjs from 'dayjs';
+import dayjs from "dayjs";
 // MUI Dependencies
-import Skeleton from '@material-ui/lab/Skeleton';
+import Skeleton from "@material-ui/lab/Skeleton";
 import {
   makeStyles,
   Avatar,
@@ -13,12 +13,12 @@ import {
   Typography,
   Card,
   Chip,
-} from '@material-ui/core';
+} from "@material-ui/core";
 
-import TwitterIcon from '@material-ui/icons/Twitter';
-import GitHubIcon from '@material-ui/icons/GitHub';
-import CakeOutlinedIcon from '@material-ui/icons/CakeOutlined';
-import EditProfileDialog from './diloags/EditProfileDialog';
+import TwitterIcon from "@material-ui/icons/Twitter";
+import GitHubIcon from "@material-ui/icons/GitHub";
+import CakeOutlinedIcon from "@material-ui/icons/CakeOutlined";
+import EditProfileDialog from "./diloags/EditProfileDialog";
 //import defaultAvatar from '../../assets/img/default.jpg';
 
 const useStyles = makeStyles((theme) => ({
@@ -27,54 +27,54 @@ const useStyles = makeStyles((theme) => ({
     height: 70,
 
     backgroundColor:
-      theme.palette.type === 'light'
+      theme.palette.type === "light"
         ? theme.palette.primary.main
         : theme.palette.secondary.main,
   },
-  userName: { textTransform: 'capitalize' },
+  userName: { textTransform: "capitalize" },
   avatarWrapper: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
     padding: theme.spacing(4),
 
-    position: 'relative',
+    position: "relative",
   },
   avatar: {
     height: theme.spacing(13),
     width: theme.spacing(13),
 
-    margin: 'auto',
+    margin: "auto",
   },
   wrapper: {
-    position: 'relative',
+    position: "relative",
   },
   avatarCenter: {
-    margin: '0 auto',
-    textAlign: 'center',
+    margin: "0 auto",
+    textAlign: "center",
     marginTop: -70,
   },
   bio: {
-    textAlign: 'center',
+    textAlign: "center",
   },
   infoBox: {
-    display: 'inline-flex',
-    alignItems: 'flex-end',
-    marginRight: '7px',
+    display: "inline-flex",
+    alignItems: "flex-end",
+    marginRight: "7px",
   },
   skillsWrapper: {
-    margin: '7px 0',
-    textAlign: 'center',
+    margin: "7px 0",
+    textAlign: "center",
   },
   skills: {
-    display: 'block',
-    textAlign: 'center',
+    display: "block",
+    textAlign: "center",
   },
   skill: {
     marginRight: 7,
   },
   rightIntro: {
-    position: 'absolute',
+    position: "absolute",
     right: 0,
     top: 0,
   },
@@ -101,7 +101,7 @@ function Intro(props) {
             <div className={classes.avatarCenter}>
               <Avatar
                 className={classes.avatar}
-                src={props.user ? props.user.avatar : ''}
+                src={props.user ? props.user.avatar : ""}
               />
               <div>
                 <Typography
@@ -113,22 +113,22 @@ function Intro(props) {
                     <Skeleton />
                   ) : (
                     props.user.firstName
-                  )}{' '}
+                  )}{" "}
                   {props.loading && props.user === null
-                    ? ''
+                    ? ""
                     : props.user.lastName}
                   {props.loading && props.profile === null ? (
-                    ''
+                    ""
                   ) : (
                     <span>
                       <a href="/">
                         <TwitterIcon
-                          style={{ marginLeft: 7, color: '#1DA1F2' }}
+                          style={{ marginLeft: 7, color: "#1DA1F2" }}
                         />
                       </a>
 
                       <a href="/">
-                        <GitHubIcon style={{ marginLeft: 7, color: '#333' }} />
+                        <GitHubIcon style={{ marginLeft: 7, color: "#333" }} />
                       </a>
                     </span>
                   )}
@@ -138,9 +138,9 @@ function Intro(props) {
                     <Skeleton />
                   ) : (
                     props.user.title
-                  )}{' '}
+                  )}{" "}
                   {props.loading && props.profile === null
-                    ? ''
+                    ? ""
                     : props.user.company}
                 </Typography>
                 <Typography display="block" variant="subtitle1">
@@ -152,7 +152,9 @@ function Intro(props) {
                 </Typography>
 
                 <div className={classes.metaSection}>
-                  {props.profile && props.profile.skills.length > 0 ? (
+                  {props.profile &&
+                  props.profile.skills &&
+                  props.profile.skills.length > 0 ? (
                     <div className={classes.skillsWrapper}>
                       <div className={classes.skills}>
                         {props.profile &&
@@ -169,7 +171,7 @@ function Intro(props) {
                     </div>
                   ) : (
                     <div className={classes.skillsWrapper}>
-                      Didn't add any skills yet{' '}
+                      Didn't add any skills yet{" "}
                       <span role="img" aria-label="No skills added">
                         👻
                       </span>
@@ -182,8 +184,8 @@ function Intro(props) {
                       {props.loading && props.profile === null ? (
                         <Skeleton />
                       ) : (
-                        'Joined ' +
-                        dayjs(props.user.createdAt).format('MMMM D, YYYY')
+                        "Joined " +
+                        dayjs(props.user.createdAt).format("MMMM D, YYYY")
                       )}
                     </div>
                   </div>

@@ -13,12 +13,14 @@ import relativeTime from 'dayjs/plugin/relativeTime';
 
 export default function Home() {
   const [posts, setPosts] = React.useState([]);
+  const [localLoading, setLocalLoading] = React.useState(true)
   dayjs.extend(relativeTime);
   React.useEffect(() => {
     const getPosts = async () => {
       try {
         const res = await post.get('/');
         setPosts(res.data.data.docs);
+        setLocalLoading(false)
       } catch (err) {
         return (
           <h4>
@@ -58,6 +60,7 @@ export default function Home() {
                 tags={post.tags}
                 likes={post.likes}
                 comments={post.comments}
+                parentLoading={localLoading}
               />
             ))}
           </Grid>

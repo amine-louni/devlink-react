@@ -1,56 +1,56 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { login } from '../actions';
+import React from "react";
+import { connect } from "react-redux";
+import { login, getCurrentUserProfile } from "../actions";
 
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
-import { Link as RouterLink, Redirect } from 'react-router-dom';
-import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import { CircularProgress } from '@material-ui/core';
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Checkbox from "@material-ui/core/Checkbox";
+import Link from "@material-ui/core/Link";
+import { Link as RouterLink, Redirect } from "react-router-dom";
+import Paper from "@material-ui/core/Paper";
+import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import { CircularProgress } from "@material-ui/core";
 
-import { Form, Formik, Field } from 'formik';
-import * as Yup from 'yup';
-import { TextField } from 'formik-material-ui';
-import Footer from '../components/common/Footer';
+import { Form, Formik, Field } from "formik";
+import * as Yup from "yup";
+import { TextField } from "formik-material-ui";
+import Footer from "../components/common/Footer";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: '100vh',
+    height: "100vh",
   },
   alert: {
     marginTop: theme.spacing(3),
-    width: '100%',
+    width: "100%",
   },
   image: {
-    backgroundImage: 'url(https://source.unsplash.com/random)',
-    backgroundRepeat: 'no-repeat',
+    backgroundImage: "url(https://source.unsplash.com/random)",
+    backgroundRepeat: "no-repeat",
     backgroundColor:
-      theme.palette.type === 'light'
+      theme.palette.type === "light"
         ? theme.palette.grey[50]
         : theme.palette.grey[900],
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
+    backgroundSize: "cover",
+    backgroundPosition: "center",
   },
   paper: {
     margin: theme.spacing(8, 4),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.primary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -62,9 +62,9 @@ function SignInSide(props) {
 
   const validationSchema = Yup.object({
     email: Yup.string()
-      .required('Required field')
-      .email('Enter a valid email please'),
-    password: Yup.string().required('Required field').min(8),
+      .required("Required field")
+      .email("Enter a valid email please"),
+    password: Yup.string().required("Required field").min(8),
   });
   // Redirect if logged in
   if (props.isAuth) {
@@ -85,12 +85,13 @@ function SignInSide(props) {
 
             <Formik
               initialValues={{
-                email: '',
-                password: '',
+                email: "",
+                password: "",
               }}
               validationSchema={validationSchema}
               onSubmit={async (values, { setSubmitting }) => {
                 await props.login(values);
+                await props.getCurrentUserProfile();
                 setSubmitting(false);
               }}
             >
@@ -134,12 +135,12 @@ function SignInSide(props) {
                     className={classes.submit}
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? <CircularProgress size={24} /> : 'Login'}
+                    {isSubmitting ? <CircularProgress size={24} /> : "Login"}
                   </Button>
                   <Grid container>
                     <Grid item xs>
                       <RouterLink to="/forgot-password">
-                        <Link variant="body2">{'Forgot password?'}</Link>
+                        <Link variant="body2">{"Forgot password?"}</Link>
                       </RouterLink>
                     </Grid>
                     <Grid item>
@@ -165,4 +166,6 @@ function SignInSide(props) {
 const mapStateToProps = (state) => {
   return { isAuth: state.auth.isAuth };
 };
-export default connect(mapStateToProps, { login })(SignInSide);
+export default connect(mapStateToProps, { login, getCurrentUserProfile })(
+  SignInSide
+);
