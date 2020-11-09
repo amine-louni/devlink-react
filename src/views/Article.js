@@ -1,17 +1,17 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { bookPost, unBookPost } from '../actions';
-import { post } from '../http';
-import Footer from '../components/common/Footer';
-import Navbar from '../components/common/Navbar';
-import { makeStyles } from '@material-ui/core/styles';
-import PostPreview from '../components/common/postPreview/PostPreview';
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import FavoriteIcon from '@material-ui/icons/Favorite';
-import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
-import BookmarkIcon from '@material-ui/icons/Bookmark';
-import ShareIcon from '@material-ui/icons/Share';
-import defaultAvatar from '../assets/img/default.jpg';
+import React from "react";
+import { connect } from "react-redux";
+import { bookPost, unBookPost } from "../actions";
+import { post } from "../http";
+import Footer from "../components/common/Footer";
+import Navbar from "../components/common/Navbar";
+import { makeStyles } from "@material-ui/core/styles";
+import PostPreview from "../components/common/postPreview/PostPreview";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import FavoriteIcon from "@material-ui/icons/Favorite";
+import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
+import BookmarkIcon from "@material-ui/icons/Bookmark";
+import ShareIcon from "@material-ui/icons/Share";
+import defaultAvatar from "../assets/img/default.jpg";
 import {
   Avatar,
   Box,
@@ -27,11 +27,11 @@ import {
   IconButton,
   TextField,
   Typography,
-} from '@material-ui/core';
-import dayjs from 'dayjs';
-import Skeleton from '@material-ui/lab/Skeleton';
+} from "@material-ui/core";
+import dayjs from "dayjs";
+import Skeleton from "@material-ui/lab/Skeleton";
 
-import PostCommentComp from '../components/Post/PostComment';
+import PostCommentComp from "../components/Post/PostComment";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -41,19 +41,19 @@ const useStyles = makeStyles((theme) => ({
     height: 340,
   },
   body: {
-    fontFamily: 'Segoe UI',
+    fontFamily: "Segoe UI",
   },
   actions: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 40,
   },
 
   action: {
     marginBottom: 15,
-    cursor: 'pointer',
+    cursor: "pointer",
   },
 }));
 
@@ -62,7 +62,7 @@ function Article(props) {
   const [article, setArticle] = React.useState({});
   const [liked, setLiked] = React.useState(false);
 
-  const [comment, setComment] = React.useState('');
+  const [comment, setComment] = React.useState("");
 
   React.useEffect(() => {
     (async () => {
@@ -107,7 +107,7 @@ function Article(props) {
           ...article.comments,
         ],
       });
-      setComment('');
+      setComment("");
     } catch (err) {
       console.log(err);
     }
@@ -169,7 +169,7 @@ function Article(props) {
               ) : (
                 <CardMedia
                   className={classes.media}
-                  image={`https://young-bayou-54809.herokuapp.com/assets${article.cover}`}
+                  image={`http://wsl:9000/assets${article.cover}`}
                   title="Contemplative Reptile"
                 />
               )}
@@ -236,35 +236,28 @@ function Article(props) {
           </Grid>
 
           <Grid item md={3}>
-            <Card>
-              <CardHeader
-                avatar={<Avatar variant="rounded" src={defaultAvatar} />}
-                title={`${
-                  loading ? <Skeleton variant="text" /> : article.user.firstName
-                }   ${
-                  loading ? <Skeleton variant="text" /> : article.user.lastName
-                } `}
-                subheader={
-                  loading ? <Skeleton variant="text" /> : article.user.userName
-                }
-              />
-              <CardActions>
-                <Button variant="contained" color="primary" fullWidth>
-                  Follow
-                </Button>
-              </CardActions>
-              <CardContent>
-                <span role="img" aria-label="calendar">
-                  📅
-                </span>{' '}
-                Joined :{' '}
-                {loading ? (
-                  <Skeleton variant="text" />
-                ) : (
-                  dayjs(article.createdAt).format('DD/MM/YYYY')
-                )}{' '}
-              </CardContent>
-            </Card>
+            {loading ? (
+              <Skeleton variant="rect" height="150" animation="wave" />
+            ) : (
+              <Card>
+                <CardHeader
+                  avatar={<Avatar variant="rounded" src={defaultAvatar} />}
+                  title={`${article.user.firstName}   ${article.user.lastName} `}
+                  subheader={article.user.userName}
+                />
+                <CardActions>
+                  <Button variant="contained" color="primary" fullWidth>
+                    Follow
+                  </Button>
+                </CardActions>
+                <CardContent>
+                  <span role="img" aria-label="calendar">
+                    📅
+                  </span>{" "}
+                  Joined : {dayjs(article.createdAt).format("DD/MM/YYYY")}
+                </CardContent>
+              </Card>
+            )}
           </Grid>
         </Grid>
       </Container>

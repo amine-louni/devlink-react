@@ -1,10 +1,9 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
+import React from "react";
+import { connect } from "react-redux";
+import { Switch, Route } from "react-router-dom";
 
-import CardContent from '@material-ui/core/CardContent';
-
-import PostCardSm from '../common/postCardSm';
+import { makeStyles } from "@material-ui/core/styles";
+import PostLists from "./PostLists";
 
 const useStyles = makeStyles({
   root: {
@@ -12,29 +11,41 @@ const useStyles = makeStyles({
   },
   empty: {
     height: 400,
-    width: '100%',
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
-export default function OutlinedCard() {
-  const classes = useStyles();
-
+function MyPosts(props) {
   return (
-    <Card className={classes.root} variant="outlined">
-      <CardContent style={{ height: '100%' }}>
-        {/* <div className={classes.empty}>
-          <Typography variant="h5">
-            {' '}
-            You have 0 posts , try to write some 🙄🙄
-          </Typography>
-                  
-              </div> */}
-
-        <PostCardSm />
-      </CardContent>
-    </Card>
+    <Switch>
+      <Route
+        path="/dashboard/"
+        component={() => (
+          <PostLists posts={props.posts} parentLoading={props.parentLoading} />
+        )}
+        exact
+      />
+      <Route
+        path="/dashboard/reading-list/"
+        component={() => (
+          <PostLists
+            posts={props.readingList}
+            parentLoading={props.parentLoading}
+          />
+        )}
+        exact
+      />
+    </Switch>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    readingList:
+      state && state.auth && state.auth.user && state.auth.user.readingList,
+  };
+};
+
+export default connect(mapStateToProps)(MyPosts);

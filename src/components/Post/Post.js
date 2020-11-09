@@ -137,7 +137,7 @@ export default function Post(props) {
                 component="img"
                 alt="Contemplative Reptile"
                 height="200"
-                image={`https://young-bayou-54809.herokuapp.com/assets${props.cover}`}
+                image={`http://wsl:9000/assets${props.cover}`}
                 title="Contemplative Reptile"
               />
             )}

@@ -1,12 +1,15 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
+import React from "react";
+import { Link as RouterLink } from "react-router-dom";
 
-import CardContent from '@material-ui/core/CardContent';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import Typography from '@material-ui/core/Typography';
-import { Avatar, CardHeader } from '@material-ui/core';
-import defaultAvatar from '../../assets/img/default.jpg';
+import Link from "@material-ui/core/Link";
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+
+import CardContent from "@material-ui/core/CardContent";
+import CardActionArea from "@material-ui/core/CardActionArea";
+import Typography from "@material-ui/core/Typography";
+import { Avatar, CardHeader } from "@material-ui/core";
+import defaultAvatar from "../../assets/img/default.jpg";
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
@@ -15,7 +18,7 @@ const useStyles = makeStyles({
 
   title: {
     fontSize: 14,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   pos: {
     marginBottom: 12,
@@ -26,33 +29,23 @@ const useStyles = makeStyles({
   },
 });
 
-export default function PostCardSm() {
+export default function PostCardSm(props) {
   const classes = useStyles();
 
   return (
     <Card className={classes.root}>
-      <CardActionArea>
-        <CardContent>
-          <Typography
-            className={classes.title}
-            variant="subtitle1"
-            component="h2"
-          >
-            Where do you host your website server side code ?
-          </Typography>
-        </CardContent>
-        <CardHeader
-          avatar={
-            <Avatar
-              aria-label="recipe"
-              className={classes.avatar}
-              src={defaultAvatar}
-            />
-          }
-          title="Shrimp and Chorizo Paella"
-          subheader="September 14, 2016"
-        />
-      </CardActionArea>
+      <Link
+        underline="none"
+        component={RouterLink}
+        to={`/article/${props.post && props.post.slug}`}
+      >
+        <CardActionArea>
+          <CardHeader
+            title={props.post && props.post.title}
+            subheader={props.post && props.post.createdAt}
+          />
+        </CardActionArea>
+      </Link>
     </Card>
   );
 }

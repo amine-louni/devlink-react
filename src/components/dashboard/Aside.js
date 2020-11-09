@@ -1,25 +1,33 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
+import React from "react";
+import { NavLink } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
+import ListSubheader from "@material-ui/core/ListSubheader";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
 
-import ListItemText from '@material-ui/core/ListItemText';
+import ListItemText from "@material-ui/core/ListItemText";
 
-import { Chip, ListItemSecondaryAction } from '@material-ui/core';
+import { Chip, ListItemSecondaryAction } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
+    width: "100%",
     maxWidth: 360,
     backgroundColor: theme.palette.background.paper,
   },
   nested: {
     paddingLeft: theme.spacing(4),
   },
+  link: {
+    textDecoration: "none",
+    color:
+      theme.palette.type === "dark"
+        ? theme.palette.common.white
+        : theme.palette.common.black,
+  },
 }));
 
-export default function Aside() {
+export default function Aside(props) {
   const classes = useStyles();
 
   return (
@@ -33,12 +41,14 @@ export default function Aside() {
       }
       className={classes.root}
     >
-      <ListItem button>
-        <ListItemText primary="My posts" />
-        <ListItemSecondaryAction>
-          <Chip label="15" />
-        </ListItemSecondaryAction>
-      </ListItem>
+      <NavLink to="/dashboard/" className={classes.link}>
+        <ListItem button>
+          <ListItemText primary="My posts" />
+          <ListItemSecondaryAction>
+            <Chip label={props.posts && props.posts.length} />
+          </ListItemSecondaryAction>
+        </ListItem>
+      </NavLink>
       <ListItem button>
         <ListItemText primary="Followers" />
         <ListItemSecondaryAction>
@@ -52,6 +62,14 @@ export default function Aside() {
           <Chip label="7" />
         </ListItemSecondaryAction>
       </ListItem>
+      <NavLink to="/dashboard/reading-list" className={classes.link}>
+        <ListItem button>
+          <ListItemText primary="Reading list" />
+          <ListItemSecondaryAction>
+            <Chip label="7" />
+          </ListItemSecondaryAction>
+        </ListItem>
+      </NavLink>
 
       <ListItem button>
         <ListItemText primary="Following hashtags" />

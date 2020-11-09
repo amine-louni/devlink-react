@@ -1,30 +1,30 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { post } from '../../http';
-import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import CloseIcon from '@material-ui/icons/Close';
-import Slide from '@material-ui/core/Slide';
+import React from "react";
+import { connect } from "react-redux";
+import { post } from "../../http";
+import { makeStyles } from "@material-ui/core/styles";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import CloseIcon from "@material-ui/icons/Close";
+import Slide from "@material-ui/core/Slide";
 
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Box from '@material-ui/core/Box';
+import Tabs from "@material-ui/core/Tabs";
+import Tab from "@material-ui/core/Tab";
+import Box from "@material-ui/core/Box";
 
-import { Card, CardContent, Container, Grid } from '@material-ui/core';
-import { Field, Form, Formik } from 'formik';
-import { TextField } from 'formik-material-ui';
+import { Card, CardContent, Container, Grid } from "@material-ui/core";
+import { Field, Form, Formik } from "formik";
+import { TextField } from "formik-material-ui";
 
-import PostPreview from './postPreview/PostPreview';
-import { setAlert } from '../../actions';
+import PostPreview from "./postPreview/PostPreview";
+import { setAlert } from "../../actions";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
-    position: 'relative',
+    position: "relative",
     marginBottom: theme.spacing(7),
   },
   title: {
@@ -32,14 +32,14 @@ const useStyles = makeStyles((theme) => ({
     flex: 1,
   },
   input: {
-    display: 'none',
+    display: "none",
   },
   updateCover: {
-    display: 'flex',
-    alignItems: 'center',
-    '& img': {
-      height: '4em',
-      marginLeft: '2em',
+    display: "flex",
+    alignItems: "center",
+    "& img": {
+      height: "4em",
+      marginLeft: "2em",
     },
   },
 }));
@@ -61,7 +61,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box p={3}>
-          <Typography component={'span'}>{children}</Typography>
+          <Typography component={"span"}>{children}</Typography>
         </Box>
       )}
     </div>
@@ -71,7 +71,7 @@ function TabPanel(props) {
 function a11yProps(index) {
   return {
     id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
+    "aria-controls": `simple-tabpanel-${index}`,
   };
 }
 
@@ -85,7 +85,7 @@ function CreatePostDialog(props) {
   const handleTab = (event, newValue) => {
     setValue(newValue);
   };
-  const [markdown, setMarkdown] = React.useState('');
+  const [markdown, setMarkdown] = React.useState("");
   return (
     <div>
       <Dialog
@@ -96,22 +96,22 @@ function CreatePostDialog(props) {
       >
         <Formik
           initialValues={{
-            cover: '',
-            title: '',
-            tags: '',
+            cover: "",
+            title: "",
+            tags: "",
             text: markdown,
           }}
           //validationSchema={validationSchema}
           onSubmit={async (values, { setSubmitting, resetForm }) => {
             // await props.login(values);
             try {
-              await post.post('/', values);
+              await post.post("/", values);
               setSubmitting(false);
 
               onClose();
               resetForm();
             } catch (err) {
-              props.setAlert(`Ops! ${err.response.data.message}`, 'error');
+              props.setAlert(`Ops! ${err.response.data.message}`, "error");
             }
           }}
         >
@@ -136,7 +136,7 @@ function CreatePostDialog(props) {
                     <CloseIcon />
                   </IconButton>
                   <Typography variant="h6" className={classes.title}>
-                    Create a post{' '}
+                    Create a post{" "}
                     <span role="img" aria-label="pen">
                       📝
                     </span>
@@ -176,11 +176,11 @@ function CreatePostDialog(props) {
                               {values.cover ? (
                                 <img
                                   style={{ marginRight: 40 }}
-                                  src={`https://young-bayou-54809.herokuapp.com/${values.cover}`}
+                                  src={`http://wsl:9000/${values.cover}`}
                                   alt="cover"
                                 />
                               ) : (
-                                ''
+                                ""
                               )}
 
                               {!values.cover ? (
@@ -195,16 +195,16 @@ function CreatePostDialog(props) {
                                       const form = new FormData();
 
                                       form.append(
-                                        'cover',
+                                        "cover",
                                         event.target.files[0]
                                       );
                                       const res = await post.post(
-                                        'update-post-cover',
+                                        "update-post-cover",
                                         form
                                       );
                                       setFieldValue(
-                                        'cover',
-                                        res.data.data.replace('public', '')
+                                        "cover",
+                                        res.data.data.replace("public", "")
                                       );
                                     }}
                                   />
@@ -224,7 +224,7 @@ function CreatePostDialog(props) {
                                   color="error"
                                   component="span"
                                   onClick={() => {
-                                    setFieldValue('cover', '');
+                                    setFieldValue("cover", "");
                                   }}
                                 >
                                   remove
@@ -268,7 +268,7 @@ function CreatePostDialog(props) {
                               autoComplete="post"
                               autoFocus
                             />
-                            <div style={{ display: 'none' }}>
+                            <div style={{ display: "none" }}>
                               {setTimeout(() => setMarkdown(values.text), 0)}
                             </div>
                           </Form>
