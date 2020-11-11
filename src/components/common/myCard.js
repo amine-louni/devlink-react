@@ -15,7 +15,7 @@ function MyCard(props) {
         avatar={
           <Avatar
             variant="rounded"
-            src={`https://young-bayou-54809.herokuapp.com/assets${user.avatar}`}
+            src={`http://wsl:3000/assets${user.avatar}`}
           />
         }
         title={`${user && user.firstName} ${user && user.lastName}`}

@@ -12,6 +12,7 @@ import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
 import PostLists from "../components/dashboard/PostLists";
 import PostCardSm from "../components/common/postCardSm";
+import { Skeleton } from "@material-ui/lab";
 
 function Home(props) {
   const [posts, setPosts] = React.useState([]);
@@ -76,10 +77,17 @@ function Home(props) {
             ))}
           </Grid>
           <Grid md={3}>
-            <h4>Reading list</h4>
-            {props.readingList.map((post) => (
-              <PostCardSm post={post} key={post._id} />
-            ))}
+            {props.loading ? (
+              <Skeleton variant="rect" height="100" animation="wave" />
+            ) : (
+              <>
+                <h4>{props.isAuth ? "Reading list" : "Login"}</h4>
+                {props.isAuth &&
+                  props.readingList.map((post) => (
+                    <PostCardSm post={post} key={post._id} />
+                  ))}
+              </>
+            )}
           </Grid>
         </Grid>
       </Container>
@@ -91,6 +99,8 @@ const mapStateToProps = (state) => {
   return {
     readingList:
       state && state.auth && state.auth.user && state.auth.user.readingList,
+    isAuth: state && state.auth && state.auth.isAuth,
+    loading: state.auth.loading,
   };
 };
 

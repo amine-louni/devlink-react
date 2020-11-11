@@ -157,7 +157,7 @@ function AccountInfos(props) {
                       {values.avatar ? (
                         <Avatar
                           style={{ marginRight: 90 }}
-                          src={`https://young-bayou-54809.herokuapp.com/assets${values.avatar}`}
+                          src={`http://wsl:3000/assets${values.avatar}`}
                         />
                       ) : (
                         ""

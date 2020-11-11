@@ -73,7 +73,7 @@ function Article(props) {
         document.title = `DevLink 👩‍💻👩‍💻 | ${article.title}`;
         setArticle(article);
         setLoading(false);
-        article.likes.some((like) => like.user._id === props.user._id)
+        article.likes.some((like) => like.user === props.user._id)
           ? setLiked(true)
           : setLiked(false);
       } catch (err) {
@@ -173,7 +173,7 @@ function Article(props) {
               ) : (
                 <CardMedia
                   className={classes.media}
-                  image={`https://young-bayou-54809.herokuapp.com/assets${article.cover}`}
+                  image={`http://wsl:3000/assets${article.cover}`}
                   title={article.title}
                 />
               )}
@@ -248,7 +248,7 @@ function Article(props) {
                   avatar={
                     <Avatar
                       variant="rounded"
-                      src={`https://young-bayou-54809.herokuapp.com/assets${article.user.avatar}`}
+                      src={`http://wsl:3000/assets${article.user.avatar}`}
                     />
                   }
                   title={`${article.user.firstName}   ${article.user.lastName} `}
