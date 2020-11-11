@@ -254,7 +254,7 @@ const Navbar = (props) => {
                         aria-haspopup="true"
                         onClick={handleToggle}
                       >
-                        <Avatar src={defaultAvatar} />
+                        <Avatar src={`http://wsl:9000/assets${user.avatar}`} />
                       </IconButton>
                       <Popper
                         open={open}

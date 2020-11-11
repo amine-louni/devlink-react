@@ -1,5 +1,6 @@
 // React + Redux Dependencies
 import React from "react";
+import { NavLink } from "react-router-dom";
 import { connect } from "react-redux";
 
 // 3rd party Dependencies
@@ -194,13 +195,15 @@ function Intro(props) {
             </div>
             <div className={classes.rightIntro}>
               <Button
+                style={{ textDecoration: "none" }}
+                to="/my-account/infos"
+                component={NavLink}
                 variant="outlined"
                 color="primary"
-                onClick={handleOpenEdit}
-                style={{ margin: 7 }}
               >
                 edit profile
               </Button>
+
               <EditProfileDialog
                 openEditDialog={openEditDialog}
                 handleClickOpenEdit={openEditDialog}

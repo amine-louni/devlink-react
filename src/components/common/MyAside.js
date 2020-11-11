@@ -1,21 +1,22 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import { NavLink } from "react-router-dom";
+import ListSubheader from "@material-ui/core/ListSubheader";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
 
-import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
-import LiveHelpOutlinedIcon from '@material-ui/icons/LiveHelpOutlined';
+import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
+import LiveHelpOutlinedIcon from "@material-ui/icons/LiveHelpOutlined";
 
-import BookmarkIcon from '@material-ui/icons/Bookmark';
+import BookmarkIcon from "@material-ui/icons/Bookmark";
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
+    width: "100%",
 
     backgroundColor: theme.palette.background.paper,
-    marginTop: '1rem',
+    marginTop: "1rem",
   },
   nested: {
     paddingLeft: theme.spacing(4),
@@ -36,12 +37,13 @@ export default function MyAside() {
       }
       className={classes.root}
     >
-      <ListItem button>
+      <ListItem button component={NavLink} to="/dashboard/reading-list">
         <ListItemIcon>
           <BookmarkIcon />
         </ListItemIcon>
         <ListItemText primary="Reading list" />
       </ListItem>
+
       <ListItem button>
         <ListItemIcon>
           <LiveHelpOutlinedIcon />

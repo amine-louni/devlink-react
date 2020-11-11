@@ -142,7 +142,11 @@ function Article(props) {
                   <FavoriteBorderIcon />
                 </IconButton>
               )}
-              {props.user && props.user.readingList.includes(article._id) ? (
+              {props.user &&
+              props.user.readingList &&
+              props.user.readingList.some(
+                (item) => item._id === article._id
+              ) ? (
                 <IconButton
                   className={classes.action}
                   onClick={() => props.unBookPost(article._id)}
@@ -169,8 +173,8 @@ function Article(props) {
               ) : (
                 <CardMedia
                   className={classes.media}
-                  image={`https://young-bayou-54809.herokuapp.com/assets${article.cover}`}
-                  title="Contemplative Reptile"
+                  image={`http://wsl:9000/assets${article.cover}`}
+                  title={article.title}
                 />
               )}
               <CardContent>
@@ -241,7 +245,12 @@ function Article(props) {
             ) : (
               <Card>
                 <CardHeader
-                  avatar={<Avatar variant="rounded" src={defaultAvatar} />}
+                  avatar={
+                    <Avatar
+                      variant="rounded"
+                      src={`http://wsl:9000/assets${article.user.avatar}`}
+                    />
+                  }
                   title={`${article.user.firstName}   ${article.user.lastName} `}
                   subheader={article.user.userName}
                 />

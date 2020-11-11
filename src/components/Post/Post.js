@@ -82,26 +82,18 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Post(props) {
   const classes = useStyles();
-
+  console.log("src" + props.user && props.avatar);
   return (
     <>
       <Card className={classes.root}>
         <CardHeader
           avatar={
-            props.parentLoading ? (
-              <Skeleton
-                animation="wave"
-                variant="circle"
-                className={classes.avatar}
-              />
-            ) : (
-              <Avatar
-                variant="rounded"
-                aria-label="article"
-                className={classes.avatar}
-                src={defaultAvatar}
-              />
-            )
+            <Avatar
+              variant="rounded"
+              aria-label="article"
+              className={classes.avatar}
+              src={`http://wsl:9000/assets${props.avatar}`}
+            />
           }
           title={
             props.parentLoading ? (
@@ -137,7 +129,7 @@ export default function Post(props) {
                 component="img"
                 alt="Contemplative Reptile"
                 height="200"
-                image={`https://young-bayou-54809.herokuapp.com/assets${props.cover}`}
+                image={`http://wsl:9000/assets${props.cover}`}
                 title="Contemplative Reptile"
               />
             )}

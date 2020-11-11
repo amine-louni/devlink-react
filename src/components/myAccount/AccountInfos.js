@@ -1,33 +1,61 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { updateMe, updateMyPassword } from '../../actions';
+import React from "react";
+import { connect } from "react-redux";
+import { user } from "../../http";
+import { updateMe, updateMyPassword } from "../../actions";
 
-import { Card, CardContent, Button } from '@material-ui/core';
+import {
+  Card,
+  CardContent,
+  Button,
+  makeStyles,
+  Avatar,
+} from "@material-ui/core";
 //import MUITextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
 // Formik Dependencies
-import * as Yup from 'yup';
-import { Formik, Form, Field } from 'formik';
-import { TextField } from 'formik-material-ui';
+import * as Yup from "yup";
+import { Formik, Form, Field } from "formik";
+import { TextField } from "formik-material-ui";
+
+const useStyles = makeStyles((theme) => ({
+  appBar: {
+    position: "relative",
+    marginBottom: theme.spacing(7),
+  },
+  title: {
+    marginLeft: theme.spacing(2),
+    flex: 1,
+  },
+  input: {
+    display: "none",
+  },
+  updateAvatar: {
+    display: "flex",
+    alignItems: "center",
+  },
+}));
 
 const infoValidationSchema = Yup.object({
-  userName: Yup.string().required('Required field').min(3),
-  firstName: Yup.string().required('Required field').min(3),
-  lastName: Yup.string().required('Required field').min(3),
+  userName: Yup.string().required("Required field").min(3),
+  firstName: Yup.string().required("Required field").min(3),
+  lastName: Yup.string().required("Required field").min(3),
+  avatar: Yup.string(),
   email: Yup.string()
-    .required('Email is a required field')
-    .email('Please enter a valid email format 🙏'),
+    .required("Email is a required field")
+    .email("Please enter a valid email format 🙏"),
 });
 
 const passValidationSchema = Yup.object({
-  password: Yup.string().required('Required field').min(8),
+  password: Yup.string().required("Required field").min(8),
   passwordConfirm: Yup.string().oneOf(
-    [Yup.ref('password'), null],
-    'Passwords must match'
+    [Yup.ref("password"), null],
+    "Passwords must match"
   ),
 });
 function AccountInfos(props) {
+  const classes = useStyles();
+
   return (
     <div>
       <Card>
@@ -45,14 +73,16 @@ function AccountInfos(props) {
             initialValues={{
               firstName:
                 props.loading && props.user === null
-                  ? ''
+                  ? ""
                   : props.user.firstName,
               lastName:
-                props.loading && props.user === null ? '' : props.user.lastName,
+                props.loading && props.user === null ? "" : props.user.lastName,
               userName:
-                props.loading && props.user === null ? '' : props.user.userName,
+                props.loading && props.user === null ? "" : props.user.userName,
               email:
-                props.loading && props.user === null ? '' : props.user.email,
+                props.loading && props.user === null ? "" : props.user.email,
+              avatar:
+                props.loading && props.user === null ? "" : props.user.avatar,
             }}
             validationSchema={infoValidationSchema}
             onSubmit={async (values, { setSubmitting }) => {
@@ -60,7 +90,14 @@ function AccountInfos(props) {
               setSubmitting(false);
             }}
           >
-            {({ submitForm, isSubmitting, touched, errors, values }) => (
+            {({
+              submitForm,
+              isSubmitting,
+              touched,
+              errors,
+              values,
+              setFieldValue,
+            }) => (
               <Form>
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={6}>
@@ -115,11 +152,68 @@ function AccountInfos(props) {
                       autoComplete="email"
                     />
                   </Grid>
+                  <Grid item xs={12}>
+                    <div className={classes.updateAvatar}>
+                      {values.avatar ? (
+                        <Avatar
+                          style={{ marginRight: 90 }}
+                          src={`http://wsl:9000/assets${values.avatar}`}
+                        />
+                      ) : (
+                        ""
+                      )}
+
+                      {!values.avatar ? (
+                        <>
+                          <input
+                            accept="image/*"
+                            className={classes.input}
+                            id="img-avatar"
+                            name="avatar"
+                            type="file"
+                            onChange={async (event) => {
+                              const form = new FormData();
+
+                              form.append("avatar", event.target.files[0]);
+                              const res = await user.post(
+                                "upload-avatar",
+                                form
+                              );
+                              console.log(res.data.data);
+                              setFieldValue(
+                                "avatar",
+                                res.data.data.replace("public", "")
+                              );
+                            }}
+                          />
+                          <label htmlFor="img-avatar">
+                            <Button
+                              variant="contained"
+                              color="primary"
+                              component="span"
+                            >
+                              Upload your avatar
+                            </Button>
+                          </label>
+                        </>
+                      ) : (
+                        <Button
+                          variant="contained"
+                          component="span"
+                          onClick={() => {
+                            setFieldValue("avatar", "");
+                          }}
+                        >
+                          remove
+                        </Button>
+                      )}
+                    </div>
+                  </Grid>
                 </Grid>
                 <div
                   style={{
-                    display: 'flex',
-                    justifyContent: 'flex-end',
+                    display: "flex",
+                    justifyContent: "flex-end",
                     marginTop: 15,
                   }}
                 >
@@ -129,7 +223,7 @@ function AccountInfos(props) {
                     variant="contained"
                     color="primary"
                   >
-                    {isSubmitting ? 'Updating ... 🔃' : '  Update me'}
+                    {isSubmitting ? "Updating ... 🔃" : "  Update me"}
                   </Button>
                 </div>
               </Form>
@@ -143,13 +237,13 @@ function AccountInfos(props) {
         <CardContent>
           <Formik
             initialValues={{
-              password: '',
-              passwordCurrent: '',
-              passwordConfirm: '',
+              password: "",
+              passwordCurrent: "",
+              passwordConfirm: "",
             }}
             validationSchema={passValidationSchema}
             onSubmit={async (values, { setSubmitting }) => {
-              console.log('submit update password');
+              console.log("submit update password");
               await props.updateMyPassword(JSON.stringify(values));
               setSubmitting(false);
             }}
@@ -199,8 +293,8 @@ function AccountInfos(props) {
                 </Grid>
                 <div
                   style={{
-                    display: 'flex',
-                    justifyContent: 'flex-end',
+                    display: "flex",
+                    justifyContent: "flex-end",
                     marginTop: 15,
                   }}
                 >
@@ -211,7 +305,7 @@ function AccountInfos(props) {
                     variant="contained"
                     color="primary"
                   >
-                    {isSubmitting ? 'Updating ... 🔃' : '  Update password'}
+                    {isSubmitting ? "Updating ... 🔃" : "  Update password"}
                   </Button>
                 </div>
               </Form>

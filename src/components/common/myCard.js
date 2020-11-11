@@ -1,27 +1,29 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { makeStyles } from '@material-ui/core/styles';
+import React from "react";
+import { connect } from "react-redux";
 
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
 
-import Avatar from '@material-ui/core/Avatar';
-import defaultAvatar from '../../assets/img/default.jpg';
-const useStyles = makeStyles((theme) => ({}));
+import Avatar from "@material-ui/core/Avatar";
+import defaultAvatar from "../../assets/img/default.jpg";
 
 function MyCard(props) {
-  const classes = useStyles();
   const { user } = props;
   return props.isAuth ? (
-    <Card className={classes.root}>
+    <Card>
       <CardHeader
-        avatar={<Avatar variant="rounded" src={defaultAvatar} />}
+        avatar={
+          <Avatar
+            variant="rounded"
+            src={`http://wsl:9000/assets${user.avatar}`}
+          />
+        }
         title={`${user && user.firstName} ${user && user.lastName}`}
         subheader={`@${user && user.userName}`}
       />
     </Card>
   ) : (
-    ''
+    ""
   );
 }
 

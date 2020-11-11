@@ -1,30 +1,29 @@
-import React from 'react';
-import { post } from './../http';
-import NavBar from '../components/common/Navbar';
-import Footer from '../components/common/Footer';
-import { Container, Grid, Typography } from '@material-ui/core';
-import PostInput from '../components/Post/PostInput';
-import Post from '../components/Post/Post';
-import MyCard from '../components/common/myCard';
-import MyAside from '../components/common/MyAside';
-import PostCardSm from '../components/common/postCardSm';
-import dayjs from 'dayjs';
-import relativeTime from 'dayjs/plugin/relativeTime';
+import React from "react";
+import { post } from "./../http";
+import NavBar from "../components/common/Navbar";
+import Footer from "../components/common/Footer";
+import { Container, Grid } from "@material-ui/core";
+
+import Post from "../components/Post/Post";
+import MyCard from "../components/common/myCard";
+import MyAside from "../components/common/MyAside";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
 
 export default function Home() {
   const [posts, setPosts] = React.useState([]);
-  const [localLoading, setLocalLoading] = React.useState(true)
+  const [localLoading, setLocalLoading] = React.useState(true);
   dayjs.extend(relativeTime);
   React.useEffect(() => {
     const getPosts = async () => {
       try {
-        const res = await post.get('/');
+        const res = await post.get("/");
         setPosts(res.data.data.docs);
-        setLocalLoading(false)
+        setLocalLoading(false);
       } catch (err) {
         return (
           <h4>
-            Ops some thing went wrong , refresh the page{' '}
+            Ops some thing went wrong , refresh the page{" "}
             <span role="img" aria-label="why">
               🙄
             </span>
@@ -39,15 +38,14 @@ export default function Home() {
     <>
       <NavBar />
       <Container style={{ marginTop: 27 }}>
-        <Grid container spacing={4}>
-          <Grid item md={3}>
+        <Grid container spacing={7}>
+          <Grid item md={4}>
             <MyCard />
 
             <MyAside />
           </Grid>
 
-          <Grid item md={6}>
-            <PostInput />
+          <Grid item md={8}>
             {posts.map((post) => (
               <Post
                 key={post._id}
@@ -61,20 +59,9 @@ export default function Home() {
                 likes={post.likes}
                 comments={post.comments}
                 parentLoading={localLoading}
+                avatar={post.user.avatar}
               />
             ))}
-          </Grid>
-          <Grid item md={3}>
-            <Typography variant="h6" gutterBottom>
-              Trending{' '}
-              <span role="img" aria-label="fires">
-                🔥🔥
-              </span>
-            </Typography>
-            <PostCardSm />
-            <PostCardSm />
-            <PostCardSm />
-            <PostCardSm />
           </Grid>
         </Grid>
       </Container>
