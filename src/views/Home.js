@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
 import { post } from "./../http";
 import NavBar from "../components/common/Navbar";
 import Footer from "../components/common/Footer";
@@ -9,11 +10,21 @@ import MyCard from "../components/common/myCard";
 import MyAside from "../components/common/MyAside";
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import PostLists from "../components/dashboard/PostLists";
+import PostCardSm from "../components/common/postCardSm";
 
-export default function Home() {
+function Home(props) {
   const [posts, setPosts] = React.useState([]);
   const [localLoading, setLocalLoading] = React.useState(true);
+  const [myPosts, setMyPosts] = useState([]);
   dayjs.extend(relativeTime);
+
+  useEffect(() => {
+    (async () => {
+      const res = await post.get("/reading-list");
+      setMyPosts(res.data.data.docs);
+    })();
+  }, []);
   React.useEffect(() => {
     const getPosts = async () => {
       try {
@@ -38,14 +49,15 @@ export default function Home() {
     <>
       <NavBar />
       <Container style={{ marginTop: 27 }}>
-        <Grid container spacing={7}>
+        <Grid container spacing={3}>
           <Grid item md={4}>
             <MyCard />
 
             <MyAside />
           </Grid>
 
-          <Grid item md={8}>
+          <Grid item md={5}>
+            <h3 style={{ marginTop: "0" }}>Posts</h3>
             {posts.map((post) => (
               <Post
                 key={post._id}
@@ -63,9 +75,23 @@ export default function Home() {
               />
             ))}
           </Grid>
+          <Grid md={3}>
+            <h4>Reading list</h4>
+            {props.readingList.map((post) => (
+              <PostCardSm post={post} key={post._id} />
+            ))}
+          </Grid>
         </Grid>
       </Container>
       <Footer />
     </>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    readingList:
+      state && state.auth && state.auth.user && state.auth.user.readingList,
+  };
+};
+
+export default connect(mapStateToProps)(Home);

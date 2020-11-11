@@ -29,9 +29,7 @@ export default function PostLists(props) {
           props.posts.map((post) => <PostCardSm post={post} key={post._id} />)}
         {!props.parentLoading && props.posts.length === 0 ? (
           <div className={classes.empty}>
-            <Typography variant="h5">
-              You have 0 posts , try to write some 🙄🙄
-            </Typography>
+            <Typography variant="h5"> 0 posts 🙄🙄</Typography>
           </div>
         ) : (
           ""
