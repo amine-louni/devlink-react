@@ -254,7 +254,9 @@ const Navbar = (props) => {
                         aria-haspopup="true"
                         onClick={handleToggle}
                       >
-                        <Avatar src={`http://wsl:9000/assets${user.avatar}`} />
+                        <Avatar
+                          src={`https://young-bayou-54809.herokuapp.com/assets${user.avatar}`}
+                        />
                       </IconButton>
                       <Popper
                         open={open}

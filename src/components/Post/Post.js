@@ -92,7 +92,7 @@ export default function Post(props) {
               variant="rounded"
               aria-label="article"
               className={classes.avatar}
-              src={`http://wsl:9000/assets${props.avatar}`}
+              src={`https://young-bayou-54809.herokuapp.com/assets${props.avatar}`}
             />
           }
           title={
@@ -129,7 +129,7 @@ export default function Post(props) {
                 component="img"
                 alt="Contemplative Reptile"
                 height="200"
-                image={`http://wsl:9000/assets${props.cover}`}
+                image={`https://young-bayou-54809.herokuapp.com/assets${props.cover}`}
                 title="Contemplative Reptile"
               />
             )}

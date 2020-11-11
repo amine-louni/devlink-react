@@ -173,7 +173,7 @@ function Article(props) {
               ) : (
                 <CardMedia
                   className={classes.media}
-                  image={`http://wsl:9000/assets${article.cover}`}
+                  image={`https://young-bayou-54809.herokuapp.com/assets${article.cover}`}
                   title={article.title}
                 />
               )}
@@ -248,7 +248,7 @@ function Article(props) {
                   avatar={
                     <Avatar
                       variant="rounded"
-                      src={`http://wsl:9000/assets${article.user.avatar}`}
+                      src={`https://young-bayou-54809.herokuapp.com/assets${article.user.avatar}`}
                     />
                   }
                   title={`${article.user.firstName}   ${article.user.lastName} `}
