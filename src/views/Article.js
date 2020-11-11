@@ -169,7 +169,7 @@ function Article(props) {
               ) : (
                 <CardMedia
                   className={classes.media}
-                  image={`https://young-bayou-54809.herokuapp.com//assets${article.cover}`}
+                  image={`https://young-bayou-54809.herokuapp.com/assets${article.cover}`}
                   title="Contemplative Reptile"
                 />
               )}
