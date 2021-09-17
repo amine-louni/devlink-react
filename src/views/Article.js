@@ -173,7 +173,7 @@ function Article(props) {
               ) : (
                 <CardMedia
                   className={classes.media}
-                  image={`http://wsl:3000/assets${article.cover}`}
+                  image={`https://link-dev-blog.herokuapp.com/assets${article.cover}`}
                   title={article.title}
                 />
               )}
@@ -248,7 +248,7 @@ function Article(props) {
                   avatar={
                     <Avatar
                       variant="rounded"
-                      src={`http://wsl:3000/assets${article.user.avatar}`}
+                      src={`https://link-dev-blog.herokuapp.com/assets${article.user.avatar}`}
                     />
                   }
                   title={`${article.user.firstName}   ${article.user.lastName} `}

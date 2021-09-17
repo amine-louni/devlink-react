@@ -176,7 +176,7 @@ function CreatePostDialog(props) {
                               {values.cover ? (
                                 <img
                                   style={{ marginRight: 40 }}
-                                  src={`http://wsl:3000/${values.cover}`}
+                                  src={`https://link-dev-blog.herokuapp.com/${values.cover}`}
                                   alt="cover"
                                 />
                               ) : (
