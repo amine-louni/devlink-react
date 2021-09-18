@@ -53,6 +53,7 @@ const useStyles = makeStyles((theme) => ({
   actionBtnLove: {
     display: "flex",
     alignItems: "center",
+    color: red[900],
     "&:hover": {
       color: red[900],
       backgroundColor: "transparent",
@@ -159,15 +160,17 @@ export default function Post(props) {
                 aria-label="add to favorites"
                 className={classes.actionBtnLove}
               >
-                <FavoriteBorder className={classes.marginRight} />
-                <Typography variant="subtitle1">
-                  {props.likes.length}
+                <FavoriteBorder color={"red"} className={classes.marginRight} />
+                <Typography variant="subtitle1" display="flex" align="center">
+                  {props.likes.length}{" "}
+                  <small>Like{props.likes.length > 0 && "s"}</small>
                 </Typography>
               </div>
               <div className={classes.actionBtnComment} aria-label="share">
                 <ChatBubbleOutlineIcon className={classes.marginRight} />
-                <Typography variant="subtitle1">
-                  {props.comments.length}
+                <Typography variant="subtitle1" display="flex" align="center">
+                  {props.comments.length}{" "}
+                  <small>Comment{props.comments.length > 0 && "s"}</small>
                 </Typography>
               </div>
             </CardActions>
