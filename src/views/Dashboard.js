@@ -21,20 +21,6 @@ export default function Dashboard() {
     <div>
       <Navbar />
       <Container style={{ marginTop: 17 }}>
-        <Grid container>
-          <Grid container spacing={4}>
-            <Grid item md={4}>
-              <StatCard title="Total posts reactions" amount={454} />
-            </Grid>
-            <Grid item md={4}>
-              <StatCard title="Saved posts" amount={7} />
-            </Grid>
-            <Grid item md={4}>
-              <StatCard title="Total posts views" amount={954} />
-            </Grid>
-          </Grid>
-        </Grid>
-
         <Grid container style={{ marginTop: 30 }}>
           <Grid item md={4}>
             <Aside posts={myPosts} />

@@ -314,9 +314,6 @@ const Navbar = (props) => {
                                     My Dashboard
                                   </MenuItem>
 
-                                  <MenuItem onClick={handleClose}>
-                                    Reading a list
-                                  </MenuItem>
                                   <MenuItem onClick={props.changeTheme}>
                                     Dark mode
                                     <Switch checked={isDark} />

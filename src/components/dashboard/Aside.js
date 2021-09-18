@@ -8,6 +8,7 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 
 import { Chip, ListItemSecondaryAction } from "@material-ui/core";
+import { connect } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Aside(props) {
+function Aside(props) {
   const classes = useStyles();
 
   return (
@@ -49,34 +50,25 @@ export default function Aside(props) {
           </ListItemSecondaryAction>
         </ListItem>
       </NavLink>
-      <ListItem button>
-        <ListItemText primary="Followers" />
-        <ListItemSecondaryAction>
-          <Chip label="107" />
-        </ListItemSecondaryAction>
-      </ListItem>
 
-      <ListItem button>
-        <ListItemText primary="Following users" />
-        <ListItemSecondaryAction>
-          <Chip label="7" />
-        </ListItemSecondaryAction>
-      </ListItem>
       <NavLink to="/dashboard/reading-list" className={classes.link}>
         <ListItem button>
           <ListItemText primary="Reading list" />
           <ListItemSecondaryAction>
-            <Chip label="7" />
+            <Chip label={props?.readingList?.length} />
           </ListItemSecondaryAction>
         </ListItem>
       </NavLink>
-
-      <ListItem button>
-        <ListItemText primary="Following hashtags" />
-        <ListItemSecondaryAction>
-          <Chip label="9" />
-        </ListItemSecondaryAction>
-      </ListItem>
     </List>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    readingList:
+      state && state.auth && state.auth.user && state.auth.user.readingList,
+    isAuth: state && state.auth && state.auth.isAuth,
+    loading: state.auth.loading,
+  };
+};
+
+export default connect(mapStateToProps)(Aside);
