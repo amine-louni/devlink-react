@@ -1,28 +1,28 @@
-import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import { connect } from 'react-redux';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { createMuiTheme } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/core/styles';
+import React from "react";
+import { Route, Switch } from "react-router-dom";
+import { connect } from "react-redux";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import { createMuiTheme } from "@material-ui/core/styles";
+import { ThemeProvider } from "@material-ui/core/styles";
 
-import PrivateRoute from './components/routing/PrivateRoute';
-import Home from './views/Home';
-import Profile from './views/Profile';
-import Register from './views/Register';
-import Login from './views/Login';
-import ForgotPassword from './views/ForgotPassword';
-import MyAccount from './views/Myaccount';
-import ResetPassword from './views/ResetPassword';
-import Article from './views/Article';
-import NotFound from './views/Notfound';
+import PrivateRoute from "./components/routing/PrivateRoute";
+import Home from "./views/Home";
+import Profile from "./views/Profile";
+import Register from "./views/Register";
+import Login from "./views/Login";
+import ForgotPassword from "./views/ForgotPassword";
+import MyAccount from "./views/Myaccount";
+import ResetPassword from "./views/ResetPassword";
+import Article from "./views/Article";
+import NotFound from "./views/Notfound";
 
-import { indigo, teal } from '@material-ui/core/colors';
-import Dashboard from './views/Dashboard';
-import Toast from './components/common/Toast';
-import { loadUser } from './actions/authHandler';
-import { getCurrentUserProfile } from './actions';
-import setAuthToken from './http/setAuthToken';
-import UserProfile from './views/userProfile';
+import { indigo, teal } from "@material-ui/core/colors";
+import Dashboard from "./views/Dashboard";
+import Toast from "./components/common/Toast";
+import { loadUser } from "./actions/authHandler";
+import { getCurrentUserProfile } from "./actions";
+import setAuthToken from "./http/setAuthToken";
+import UserProfile from "./views/userProfile";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -30,23 +30,23 @@ if (localStorage.token) {
 function App({ isDark, loadUser, getCurrentUserProfile }) {
   const defaultTheme = createMuiTheme({
     palette: {
-      type: 'light',
+      type: "light",
       primary: indigo,
       secondary: teal,
     },
     typography: {
-      fontFamily: 'Inconsolata',
+      fontFamily: "Poppins",
     },
   });
 
   const darkTheme = createMuiTheme({
     palette: {
-      type: 'dark',
+      type: "dark",
       primary: indigo,
       secondary: teal,
     },
     typography: {
-      fontFamily: 'Inconsolata',
+      fontFamily: "Poppins",
     },
   });
   let theme = isDark ? darkTheme : defaultTheme;

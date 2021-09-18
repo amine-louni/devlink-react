@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { post } from "./../http";
 import NavBar from "../components/common/Navbar";
 import Footer from "../components/common/Footer";
-import { Container, Grid } from "@material-ui/core";
+import { Card, Container, Grid } from "@material-ui/core";
 
 import Post from "../components/Post/Post";
 import MyCard from "../components/common/myCard";
@@ -81,11 +81,13 @@ function Home(props) {
               <Skeleton variant="rect" height="100" animation="wave" />
             ) : (
               <>
-                <h4>{props.isAuth ? "Reading list" : "Login"}</h4>
-                {props.isAuth &&
-                  props.readingList.map((post) => (
-                    <PostCardSm post={post} key={post._id} />
-                  ))}
+                <Card style={{ padding: 10 }}>
+                  <h4>{props.isAuth ? "Reading list" : "Login"}</h4>
+                  {props.isAuth &&
+                    props.readingList.map((post) => (
+                      <PostCardSm post={post} key={post._id} />
+                    ))}
+                </Card>
               </>
             )}
           </Grid>

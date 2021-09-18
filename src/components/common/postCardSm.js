@@ -8,17 +8,23 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardActionArea from "@material-ui/core/CardActionArea";
 import Typography from "@material-ui/core/Typography";
-import { Avatar, CardHeader } from "@material-ui/core";
+import { Avatar, Badge, Box, CardHeader, Chip } from "@material-ui/core";
 import defaultAvatar from "../../assets/img/default.jpg";
 const useStyles = makeStyles({
   root: {
     minWidth: 275,
     marginBottom: 8,
+    padding: 15,
+    cursor: "pointer",
+    "&:hover": {
+      background: "#F4F5F6",
+    },
   },
 
   title: {
-    fontSize: 14,
-    fontWeight: "bold",
+    fontSize: 16,
+    fontWeight: "500",
+    color: "#333",
   },
   pos: {
     marginBottom: 12,
@@ -33,19 +39,23 @@ export default function PostCardSm(props) {
   const classes = useStyles();
 
   return (
-    <Card className={classes.root}>
+    <Box className={classes.root}>
       <Link
         underline="none"
         component={RouterLink}
         to={`/article/${props.post && props.post.slug}`}
       >
-        <CardActionArea>
+        <Typography className={classes.title}>{props?.post?.title}</Typography>
+        {props?.post?.tags?.map((tag) => (
+          <Chip size="small" label={tag} />
+        ))}
+        {/* <CardActionArea>
           <CardHeader
-            title={props.post && props.post.title}
-            subheader={props.post && props.post.createdAt}
+          title={props?.post?.title}
+          subheader={props?.post?.createdAt}
           />
-        </CardActionArea>
+        </CardActionArea> */}
       </Link>
-    </Card>
+    </Box>
   );
 }

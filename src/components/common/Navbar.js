@@ -35,6 +35,7 @@ import {
 } from "@material-ui/core";
 import defaultAvatar from "../../assets/img/default.jpg";
 import { Skeleton } from "@material-ui/lab";
+import BlackLogo from "../../assets/img/dev-black.png";
 
 function HideOnScroll(props) {
   const { children, window } = props;
@@ -202,9 +203,7 @@ const Navbar = (props) => {
               </IconButton>
               <MobileSideBar />
               <Link to="/">
-                <Typography className={classes.title} variant="h6" noWrap>
-                  devLink
-                </Typography>
+                <img height="35" src={BlackLogo} alt="logo" />
               </Link>
               <div className={classes.search}>
                 <div className={classes.searchIcon}>
