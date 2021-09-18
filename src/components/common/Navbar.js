@@ -205,7 +205,7 @@ const Navbar = (props) => {
               <Link to="/">
                 <img height="35" src={BlackLogo} alt="logo" />
               </Link>
-              <div className={classes.search}>
+              {/* <div className={classes.search}>
                 <div className={classes.searchIcon}>
                   <Search />
                 </div>
@@ -217,14 +217,14 @@ const Navbar = (props) => {
                   }}
                   inputProps={{ "aria-label": "search" }}
                 />
-              </div>
+              </div> */}
               <div className={classes.grow} />
               {!props.loading ? (
                 isAuth ? (
                   <>
                     <Button
                       variant="contained"
-                      color="default"
+                      color="primary"
                       className={classes.cta}
                       style={{ marginRight: 30 }}
                       size="small"
@@ -233,7 +233,7 @@ const Navbar = (props) => {
                     >
                       write a post
                     </Button>
-                    <IconButton>
+                    {/* <IconButton>
                       <Badge badgeContent={4} color="error">
                         <MailOutline />
                       </Badge>
@@ -242,7 +242,7 @@ const Navbar = (props) => {
                       <Badge badgeContent={3} color="error">
                         <NotificationsOutlined />
                       </Badge>
-                    </IconButton>
+                    </IconButton> */}
 
                     <div className={classes.userInfos}>
                       <IconButton
