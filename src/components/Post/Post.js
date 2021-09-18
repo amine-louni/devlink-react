@@ -83,17 +83,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Post(props) {
   const classes = useStyles();
-  console.log("src" + props.user && props.avatar);
   return (
     <>
       <Card className={classes.root}>
         <CardHeader
           avatar={
             <Avatar
-              variant="rounded"
+              variant="circle"
               aria-label="article"
               className={classes.avatar}
-              src={`https://link-dev-blog.herokuapp.com/assets${props.avatar}`}
+              src={`https://link-dev-blog.herokuapp.com/assets/${props?.avatar}`}
             />
           }
           title={
@@ -130,7 +129,7 @@ export default function Post(props) {
                 component="img"
                 alt="Contemplative Reptile"
                 height="200"
-                image={`https://link-dev-blog.herokuapp.com/assets${props.cover}`}
+                image={`https://link-dev-blog.herokuapp.com/assets/${props?.cover}`}
                 title="Contemplative Reptile"
               />
             )}
