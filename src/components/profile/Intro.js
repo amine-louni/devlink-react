@@ -92,7 +92,7 @@ function Intro(props) {
   const handleCloseEdit = () => {
     setOpenEditDialog(false);
   };
-
+  console.log(props.user);
   return (
     <Card className={classes.root}>
       <div>
@@ -102,7 +102,7 @@ function Intro(props) {
             <div className={classes.avatarCenter}>
               <Avatar
                 className={classes.avatar}
-                src={props.user ? props.user.avatar : ""}
+                src={`https://link-dev-blog.herokuapp.com/assets${props?.user?.avatar}`}
               />
               <div>
                 <Typography
@@ -219,9 +219,9 @@ function Intro(props) {
 
 const mapStateToProps = (state) => {
   return {
-    user: state.auth.user,
-    profile: state.userProfile.profile,
-    loading: state.userProfile.loading,
+    user: state?.auth?.user,
+    profile: state?.userProfile?.profile,
+    loading: state?.userProfile?.loading,
   };
 };
 export default connect(mapStateToProps)(Intro);
